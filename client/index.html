@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EstateHub — Real Estate Portal</title>
+  <meta name="description" content="Browse premium real estate listings, save your favourite properties, and manage your buyer account on EstateHub." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Toast Container-->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!--  VIEW: AUTH (Login / Register) -->
+  <div id="view-auth" class="view">
+    <div class="auth-container">
+      <!-- Left: Hero Section -->
+      <div class="auth-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="hero-badge">EDITORIAL EXCELLENCE</p>
+          <h1 class="hero-title">The Architectural<br/>Curator.</h1>
+          <p class="hero-description">Access an exclusive selection of properties where architecture meets lifestyle. Curated for the discerning eye.</p>
+          <div class="hero-featured">
+            <div class="featured-badge">
+              <span class="location-icon">📍</span>
+              <div>
+                <p class="featured-name">The Glass Pavilion</p>
+                <p class="featured-location">BEVERLY HILLS, CA</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Auth Card -->
+      <div class="auth-panel">
+        <div class="auth-card">
+          <div class="auth-logo">
+            <span class="logo-icon">🏛️</span>
+            <span class="logo-text">CURATOR</span>
+          </div>
+          <h2 class="auth-heading">Welcome Back</h2>
+          <p class="auth-subheading">Sign in to manage your curated property portfolio.</p>
+
+          <!-- Tab Switcher -->
+          <div class="auth-tabs" role="tablist">
+            <button id="tab-login"    class="auth-tab active" role="tab" aria-selected="true"  onclick="switchTab('login')">Login</button>
+            <button id="tab-register" class="auth-tab"        role="tab" aria-selected="false" onclick="switchTab('register')">Register</button>
+          </div>
+
+          <!-- Login Form -->
+          <form id="form-login" class="auth-form" novalidate autocomplete="on">
+            <div class="field-group">
+              <label for="login-email">EMAIL ADDRESS</label>
+              <input id="login-email" type="email" placeholder="name@architecture.com" autocomplete="email" required />
+              <span class="field-error" id="login-email-error"></span>
+            </div>
+            <div class="field-group password-group">
+              <div class="password-label-row">
+                <label for="login-password">PASSWORD</label>
+                <a href="#" class="forgot-password">Forgot password?</a>
+              </div>
+              <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password" required />
+              <span class="field-error" id="login-password-error"></span>
+            </div>
+            <div class="field-error form-error" id="login-form-error"></div>
+            <button type="submit" class="btn btn-primary" id="login-submit-btn">Sign In →</button>
+          </form>
+
+          <!-- Register Form -->
+          <form id="form-register" class="auth-form hidden" novalidate autocomplete="on">
+            <div class="field-group">
+              <label for="reg-name">FULL NAME</label>
+              <input id="reg-name" type="text" placeholder="Jane Smith" autocomplete="name" required />
+              <span class="field-error" id="reg-name-error"></span>
+            </div>
+            <div class="field-group">
+              <label for="reg-email">EMAIL ADDRESS</label>
+              <input id="reg-email" type="email" placeholder="name@architecture.com" autocomplete="email" required />
+              <span class="field-error" id="reg-email-error"></span>
+            </div>
+            <div class="field-group">
+              <label for="reg-password">PASSWORD</label>
+              <input id="reg-password" type="password" placeholder="Min. 8 characters" autocomplete="new-password" required />
+              <span class="field-error" id="reg-password-error"></span>
+            </div>
+            <div class="field-group">
+              <label for="reg-confirm">CONFIRM PASSWORD</label>
+              <input id="reg-confirm" type="password" placeholder="Repeat password" autocomplete="new-password" required />
+              <span class="field-error" id="reg-confirm-error"></span>
+            </div>
+            <div class="field-error form-error" id="reg-form-error"></div>
+            <button type="submit" class="btn btn-primary" id="reg-submit-btn">Create Account</button>
+          </form>
+
+          <!-- Social Login -->
+          <div class="social-divider">OR CONTINUE WITH</div>
+          <div class="social-buttons">
+            <button type="button" class="btn btn-social">
+              <span>Google</span>
+            </button>
+            <button type="button" class="btn btn-social">
+              <span>Apple</span>
+            </button>
+          </div>
+
+          <!-- Footer -->
+          <p class="auth-footer">By continuing, you agree to CURATOR's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW: DASHBOARD-->
+  <div id="view-dashboard" class="view hidden">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+      <div class="header-container">
+        <div class="header-logo">
+          <span class="logo-text">EstateCurator</span>
+        </div>
+        <nav class="header-nav" id="main-nav">
+          <a href="#" class="nav-link active">Dashboard</a>
+          <a href="#" class="nav-link">All Properties</a>
+          <a href="#" class="nav-link">My Favourites</a>
+        </nav>
+        <div class="header-right">
+          <input type="text" class="search-bar" id="search-bar" placeholder="Search estates..." oninput="filterProperties(this.value)" />
+          <button class="btn btn-outline logout-btn" id="logout-btn" onclick="logout()">Logout</button>
+          <div class="profile-avatar">👤</div>
+          <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation" onclick="toggleMobileNav()">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Nav Drawer -->
+      <div class="mobile-nav" id="mobile-nav">
+        <a href="#" class="mobile-nav-link">Dashboard</a>
+        <a href="#" class="mobile-nav-link">All Properties</a>
+        <a href="#" class="mobile-nav-link">My Favourites</a>
+        <input type="text" class="search-bar mobile-search" placeholder="Search estates..." oninput="filterProperties(this.value)" />
+        <button class="btn btn-outline logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="dashboard-container">
+        
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+          <h1 class="welcome-title" id="welcome-title">Welcome, User</h1>
+          <p class="welcome-subtitle">Your curated selection of architectural masterpieces awaits.</p>
+        </div>
+
+        <!-- View Toggle -->
+        <div class="view-controls">
+          <button class="view-toggle list-view" title="List view">☰</button>
+          <button class="view-toggle grid-view active" title="Grid view">⊞</button>
+        </div>
+
+        <!-- Main Content: Two Column Layout -->
+        <div class="dashboard-grid">
+          
+          <!-- Left: All Properties -->
+          <section class="properties-section">
+            <div class="section-header">
+              <h2 class="section-title">ALL PROPERTIES</h2>
+              <span class="props-count-badge" id="all-props-count"></span>
+            </div>
+            <div class="properties-grid" id="all-properties-grid">
+              <!-- Filled by JS -->
+            </div>
+          </section>
+
+          <!-- Right: My Favourites -->
+          <section class="favourites-section">
+            <div class="section-header">
+              <h2 class="section-title">MY FAVOURITES</h2>
+              <button class="add-btn">+</button>
+            </div>
+            <div id="favourites-empty" class="empty-state hidden">
+              <p class="empty-text">No favourites yet. Browse properties and save your favorites!</p>
+            </div>
+            <div class="favourites-list" id="favourites-grid">
+              <!-- Filled by JS -->
+            </div>
+          </section>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
